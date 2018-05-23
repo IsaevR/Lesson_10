@@ -2,6 +2,7 @@
 // препинания и другие буквенные последовательности, например:
 // “text_one_123_two” => “txet_eno_123_owt
 using System;
+using System.Collections.Generic;
 
 namespace TestDev1
 {
@@ -9,40 +10,43 @@ namespace TestDev1
     {
         static void Main(string[] args)
         {
-            string line = "text_one_123_two";
+            string line = "text_one_123_two_wft";
 
             Console.Write("Исходная строка - {0}\n", line);
-            Console.Write("Перевернутая строка - ");
-            RevString(line);
-
+            Console.Write("Перевернутая строка - " + RevString(line));
+            
+            Console.ReadLine();
         }
 
-        static void RevString(string s)
+        static string RevString(string s)
         {
-           
-            char[] arr = s.ToCharArray();
-            
-            s = "";
-            string c = "";
 
-            for (int i = 0; i < arr.Length ; i++)
+            string buff = "";
+
+            string str = "";
+
+            for (int i = 0; i < s.Length; i++)
             {
-                if (arr[i] == 95 || (arr[i] > 47 || arr[i] < 58))
+                if (Char.IsLetter(s[i]))         ///* Char.IsLetter (char) - этот метод определяет,  
+                {                                /// является ли Char членом какой-либо
+                    buff = s[i] + buff;          ///категории букв Юникода.
+                }                                ///возвращаемое значение - true/false.*/
+                else
                 {
-                    for (int j = s.Length- 1; j == 0; j--)
-                    {
-                       c += s[j];
-                    }
-               
-                s = "";
-
+                    str += buff;
+                    buff = "";
+                    str += s[i];
                 }
-                s += arr[i];
-                
             }
-           
-            Console.WriteLine(c);
+
+            if (!string.IsNullOrEmpty(buff)) // Указывает, является ли указанная строка строкой null или Empty. 
+            {
+                str += buff;
+            }
+
+            return str;
             
         }
+
     }
 }
